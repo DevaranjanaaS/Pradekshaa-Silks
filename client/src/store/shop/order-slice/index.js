@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
 const initialState = {
   approvalURL: null,
   isLoading: false,
@@ -13,7 +15,7 @@ export const createNewOrder = createAsyncThunk(
   "/order/createNewOrder",
   async (orderData) => {
     const response = await axios.post(
-      "http://localhost:5000/api/shop/order/create",
+      `${API_BASE_URL}/api/shop/order/create`,
       orderData
     );
 
@@ -25,7 +27,7 @@ export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
   async ({ paymentId, payerId, orderId }) => {
     const response = await axios.post(
-      "http://localhost:5000/api/shop/order/capture",
+      `${API_BASE_URL}/api/shop/order/capture`,
       {
         paymentId,
         payerId,
@@ -41,7 +43,7 @@ export const captureRazorpayPayment = createAsyncThunk(
   "/order/captureRazorpayPayment",
   async ({ razorpay_payment_id, orderId }) => {
     const response = await axios.post(
-      "http://localhost:5000/api/shop/order/capture",
+      `${API_BASE_URL}/api/shop/order/capture`,
       {
         paymentId: razorpay_payment_id,
         payerId: "",
@@ -57,7 +59,7 @@ export const verifyRazorpayPayment = createAsyncThunk(
   "/order/verifyRazorpayPayment",
   async ({ razorpay_payment_id, razorpay_order_id, razorpay_signature, orderId }) => {
     const response = await axios.post(
-      "http://localhost:5000/api/shop/order/verify-razorpay",
+      `${API_BASE_URL}/api/shop/order/verify-razorpay`,
       {
         razorpay_payment_id,
         razorpay_order_id,
@@ -73,7 +75,7 @@ export const getAllOrdersByUserId = createAsyncThunk(
   "/order/getAllOrdersByUserId",
   async (userId) => {
     const response = await axios.get(
-      `http://localhost:5000/api/shop/order/list/${userId}`
+      `${API_BASE_URL}/api/shop/order/list/${userId}`
     );
 
     return response.data;
@@ -84,7 +86,7 @@ export const getOrderDetails = createAsyncThunk(
   "/order/getOrderDetails",
   async (id) => {
     const response = await axios.get(
-      `http://localhost:5000/api/shop/order/details/${id}`
+      `${API_BASE_URL}/api/shop/order/details/${id}`
     );
 
     return response.data;
