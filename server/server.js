@@ -49,7 +49,7 @@ app.use(mongoSanitize());
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    origin: "https://pradekshaa-silks-frontend.onrender.com" ,
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
