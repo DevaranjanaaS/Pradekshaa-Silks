@@ -47,7 +47,7 @@ function ProductImageUpload({
     const data = new FormData();
     imageFiles.forEach((file) => data.append("my_file", file));
     const response = await axios.post(
-      "http://localhost:5000/api/admin/products/upload-image",
+      "http://"https://pradekshaa-silks-backend.onrender.com"/api/admin/products/upload-image",
       data
     );
     if (response?.data?.success) {
