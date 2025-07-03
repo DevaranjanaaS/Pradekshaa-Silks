@@ -205,6 +205,15 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             )}
           </div>
           <Separator />
+          <div className="mt-4 mb-2">
+            <a
+              href="/about-us#policy-section"
+              className="text-blue-600 hover:underline text-sm font-medium"
+              onClick={() => setOpen(false)}
+            >
+              Know about our Return & Cancellation Policy
+            </a>
+          </div>
           {/* <div className="max-h-[300px] overflow-auto">
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
             <div className="grid gap-6">

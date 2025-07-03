@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const imageSections = [
   {
@@ -74,6 +74,16 @@ const imageSections = [
 ];
 
 function AboutUs() {
+  const policyRef = useRef(null);
+
+  useEffect(() => {
+    if (window.location.hash === "#policy-section" && policyRef.current) {
+      setTimeout(() => {
+        policyRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 100); // Wait for render
+    }
+  }, []);
+
   return (
     <section className="bg-gradient-to-b from-yellow-50 via-white to-yellow-100 py-14 px-4 md:px-0 min-h-screen">
       <div className="max-w-5xl mx-auto">
@@ -238,6 +248,108 @@ function AboutUs() {
               Discover the elegance of tradition and the allure of modern design at
               <span className="text-yellow-700 font-semibold"> Pradhikshaa Ventures</span>—your destination for timeless style and exceptional boutique experiences.
             </p>
+          </div>
+        </div>
+        {/* Policy Section Anchor and PDF Embed */}
+        <div id="policy-section" ref={policyRef} className="mt-20">
+          <h2 className="text-2xl font-bold mb-4 text-yellow-900">
+            Return, Exchange & Cancellation Policy
+          </h2>
+          <div className="bg-white rounded-xl shadow p-6 flex flex-col items-start max-w-3xl mx-auto">
+            <p className="mb-2 font-semibold">Pradhikshaa Silks<br/>Return, Cancellation, and Exchange Policy</p>
+            <p className="mb-2 text-gray-700">Effective Date: <span className="italic">[To be added]</span></p>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Return Policy</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li className="font-semibold">Domestic Orders (Within India)</li>
+              <li>Returns are accepted only if the customer informs us within 24 hours of delivery, under the following conditions:
+                <ul className="list-disc pl-6">
+                  <li>The item received is damaged or defective.</li>
+                  <li>An incorrect item has been delivered.</li>
+                </ul>
+              </li>
+              <li className="text-red-600 font-medium">Products purchased on Sale/Deal prices are not eligible for return or exchange under any circumstances.</li>
+            </ul>
+            <p className="font-semibold mt-4">How to Initiate a Return</p>
+            <ol className="list-decimal pl-8 mb-2">
+              <li>Notify Us Within 24 Hours: Inform us via email or WhatsApp/call within 24 hours of delivery, with order details and the reason for return.</li>
+              <li>Provide Proof: For damaged or incorrect items, a clear, unedited video of the entire unboxing process is mandatory. The video must show the product, price tag, and packaging. Edited or cut videos will not be accepted.</li>
+              <li>Approval: Await review and approval from our customer support team.</li>
+              <li>Courier Dispatch Within 3 Days: Once approved, the return courier must be shipped within 3 days of delivery. Pack the item securely and send it to the address provided by our team.</li>
+            </ol>
+            <p className="mb-2">Contact: <br/>Phone/WhatsApp: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a><br/>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a></p>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Products must be unused, with all original tags and folding intact.</li>
+              <li>Must be returned in original packaging.</li>
+              <li>Reverse pickup is not available – all return shipping charges must be borne by the customer.</li>
+              <li>Only one return or exchange is permitted per product.</li>
+            </ul>
+            <p className="font-semibold mt-4">Refunds</p>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Refunds are provided only if the product is out of stock.</li>
+              <li>If a return is approved (not due to stock issues), customers can opt for:
+                <ul className="list-disc pl-6">
+                  <li>Exchange with another product, or</li>
+                  <li>Gift card equivalent to the value of the returned product.</li>
+                </ul>
+              </li>
+              <li>For out-of-stock products, refunds will be processed within 7–10 working days to the original payment method after our quality team’s approval.</li>
+            </ul>
+            <p className="font-semibold mt-4">International Orders</p>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Returns and exchanges are not accepted for orders shipped outside India.</li>
+            </ul>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Exchange Policy</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Exchanges are accepted only for defective or damaged items.</li>
+              <li>The request must be made within 24 hours of delivery.</li>
+              <li>A complete, unedited unboxing video is mandatory.</li>
+              <li>Product must be unused, with original tags, folding, and packaging intact.</li>
+              <li>Reverse pickup is not available – customers must bear the shipping charges.</li>
+              <li>Only one exchange or return is allowed per product.</li>
+              <li>Follow the same procedure as mentioned in the return section.</li>
+              <li>Contact: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a> (Call or WhatsApp)</li>
+            </ul>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Cancellation Policy</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Orders can be cancelled only before they are shipped.</li>
+              <li>To cancel, contact us immediately at <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a>.</li>
+              <li>Once shipped, cancellation is not permitted.</li>
+            </ul>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Quality Check Criteria</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li>No signs of use, wash, or alteration.</li>
+              <li>All original tags (including silk mark tag, if applicable) must be intact.</li>
+              <li>Original folding and packaging must be unaltered.</li>
+              <li>Product must be free from stains, odors, or damages.</li>
+            </ul>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Dispute Resolution</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li>For any dispute or concern related to return/exchange decisions, kindly reach out to us via WhatsApp at <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a> for quick resolution.</li>
+            </ul>
+            <ol className="list-decimal pl-6 mb-4">
+              <li className="mb-2 font-bold">Important Notes</li>
+            </ol>
+            <ul className="list-disc pl-8 mb-2">
+              <li>Color Variations: Minor differences may occur due to screen or camera settings.</li>
+              <li>For any return/exchange/cancellation-related queries, contact us at:
+                <ul className="list-disc pl-6">
+                  <li>Phone/WhatsApp: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a></li>
+                  <li>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a></li>
+                </ul>
+              </li>
+            </ul>
+            <p className="mt-4 text-gray-700">This policy is intended to maintain transparency, fairness, and a smooth shopping experience for all our customers at Pradhikshaa Silks.</p>
+            <p className="mt-2 font-semibold">Pradhikshaa Silks<br/>Customer Support: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a><br/>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a><br/>Address: <span className="italic">[To be added]</span></p>
           </div>
         </div>
       </div>
