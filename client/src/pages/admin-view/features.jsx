@@ -90,7 +90,7 @@ function AdminFeatures() {
   // Handle add new category
   const handleAddCategory = async () => {
     if (!newItemName.trim() || !categoryImageUrls.length) return;
-    await fetch('/https://pradekshaa-silks-backend.onrender.com/common/categories', {
+    await fetch('/https://pradekshaa-silks-backend.onrender.com/api/common/categories', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newItemName, image: categoryImageUrls[0] }),
