@@ -30,7 +30,7 @@ function ProductDropdown() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/common/categories")
+    fetch("https://pradekshaa-silks-backend.onrender.com/api/common/categories")
       .then((res) => res.json())
       .then((data) => {
         const categoryList = Array.isArray(data) ? data : data.categories;

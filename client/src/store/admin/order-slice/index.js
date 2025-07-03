@@ -10,7 +10,7 @@ export const getAllOrdersForAdmin = createAsyncThunk(
   "/order/getAllOrdersForAdmin",
   async () => {
     const response = await axios.get(
-      "https://pradekshaa-silks-backend.onrender.com/api/admin/orders/getAll"
+      "https://pradekshaa-silks-backend.onrender.com/api/admin/orders/get"
     );
 
     return response.data;
@@ -21,7 +21,7 @@ export const getOrderDetailsForAdmin = createAsyncThunk(
   "/order/getOrderDetailsForAdmin",
   async (id) => {
     const response = await axios.get(
-      `https://pradekshaa-silks-backend.onrender.com/api/admin/orders/get/${id}`
+      `https://pradekshaa-silks-backend.onrender.com/api/admin/orders/details/${id}`
     );
 
     return response.data;

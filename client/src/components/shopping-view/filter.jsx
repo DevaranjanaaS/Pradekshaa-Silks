@@ -7,7 +7,7 @@ function ProductFilter({ filters, handleFilter }) {
   const [categoryData, setCategoryData] = useState({ categories: [], subcategories: [] });
 
   useEffect(() => {
-    fetch('/api/common/categories')
+    fetch('https://pradekshaa-silks-backend.onrender.com/api/common/categories')
       .then(res => res.json())
       .then(data => {
         setCategoryData(data);

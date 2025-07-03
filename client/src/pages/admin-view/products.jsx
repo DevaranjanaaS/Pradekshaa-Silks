@@ -106,7 +106,7 @@ function AdminProducts() {
 
   useEffect(() => {
     if (openCreateProductsDialog) {
-      fetch("/api/common/categories")
+      fetch("https://pradekshaa-silks-backend.onrender.com/api/common/categories")
         .then((res) => res.json())
         .then((data) => setCategoryData(data))
         .catch(() => setCategoryData({ categories: [], subcategories: [] }));
