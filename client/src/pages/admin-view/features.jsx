@@ -10,8 +10,6 @@ import {
 } from 'lucide-react';
 import ProductImageUpload from "@/components/admin-view/image-upload";
 
-const API_BASE_URL = "https://pradekshaa-silks-backend.onrender.com";
-
 function AdminFeatures() {
   // State for categories and subcategories
   const [categoryData, setCategoryData] = useState({ categories: [], subcategories: [] });
@@ -30,7 +28,7 @@ function AdminFeatures() {
 
   // Fetch data from backend
   useEffect(() => {
-    fetch('${API_BASE_URL}/api/common/categories')
+    fetch('/api/common/categories')
       .then(res => res.json())
       .then(data => setCategoryData(data))
       .catch(() => setCategoryData({ categories: [], subcategories: [] }));
@@ -38,7 +36,7 @@ function AdminFeatures() {
 
   // Helper to refresh data after any change
   const refreshCategoryData = () => {
-    fetch('${API_BASE_URL}/api/common/categories')
+    fetch('/api/common/categories')
       .then(res => res.json())
       .then(data => setCategoryData(data));
   };
@@ -62,13 +60,13 @@ function AdminFeatures() {
     if (!newItemName.trim()) return;
 
     if (editingItem.type === 'category') {
-      await fetch(`${API_BASE_URL}/api/common/categories/${editingItem.id}`, {
+      await fetch(`/api/common/categories/${editingItem.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newItemName }),
       });
     } else {
-      await fetch(`${API_BASE_URL}/api/common/subcategories/${editingItem.id}`, {
+      await fetch(`/api/common/subcategories/${editingItem.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newItemName }),
@@ -82,9 +80,9 @@ function AdminFeatures() {
   // Handle delete
   const handleDelete = async (id, type) => {
     if (type === 'category') {
-      await fetch(`${API_BASE_URL}/api/common/categories/${id}`, { method: 'DELETE' });
+      await fetch(`/api/common/categories/${id}`, { method: 'DELETE' });
     } else {
-      await fetch(`${API_BASE_URL}/api/common/subcategories/${id}`, { method: 'DELETE' });
+      await fetch(`/api/common/subcategories/${id}`, { method: 'DELETE' });
     }
     refreshCategoryData();
   };
@@ -92,7 +90,7 @@ function AdminFeatures() {
   // Handle add new category
   const handleAddCategory = async () => {
     if (!newItemName.trim() || !categoryImageUrls.length) return;
-    await fetch('${API_BASE_URL}/api/common/categories', {
+    await fetch('/api/common/categories', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newItemName, image: categoryImageUrls[0] }),
@@ -107,7 +105,7 @@ function AdminFeatures() {
   // Handle add new subcategory
   const handleAddSubcategory = async () => {
     if (!newItemName.trim() || !selectedCategoryForSubcategory || !subcategoryImageUrls.length) return;
-    await fetch('${API_BASE_URL}/api/common/subcategories', {
+    await fetch('/api/common/subcategories', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newItemName, categoryId: selectedCategoryForSubcategory, image: subcategoryImageUrls[0] }),
