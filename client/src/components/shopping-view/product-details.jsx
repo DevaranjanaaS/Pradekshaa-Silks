@@ -110,11 +110,11 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   //console.log(reviews, "reviews");
 
-  const averageReview =
+  /*const averageReview =
     reviews && reviews.length > 0
       ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) /
         reviews.length
-      : 0;
+      : 0;*/
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
@@ -139,25 +139,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         <div className="relative flex flex-col order-2 md:order-2">
           {/* Title */}
           <h1 className="text-2xl md:text-3xl font-extrabold mb-2">{productDetails?.title}</h1>
-          {/* Price */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
-            <p
-              className={`text-2xl md:text-3xl font-bold text-primary ${
-                productDetails?.salePrice > 0 ? "line-through" : ""
-              }`}
-            >
-              ₹{productDetails?.price}
-            </p>
-            {productDetails?.salePrice > 0 ? (
-              <p className="text-xl md:text-2xl font-bold text-muted-foreground">
-                ₹{productDetails?.salePrice}
-              </p>
-            ) : null}
-          </div>
-          {/* Description */}
-          <p className="text-muted-foreground text-base md:text-2xl mb-4">
-            {productDetails?.description}
-          </p>
           {/* YouTube Video Preview */}
           {productDetails?.youtubeLink && (
             <div className="my-2 md:my-4 order-4">
@@ -194,6 +175,25 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               })()}
             </div>
           )}
+          {/* Price */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
+            <p
+              className={`text-2xl md:text-3xl font-bold text-primary ${
+                productDetails?.salePrice > 0 ? "line-through" : ""
+              }`}
+            >
+              ₹{productDetails?.price}
+            </p>
+            {productDetails?.salePrice > 0 ? (
+              <p className="text-xl md:text-2xl font-bold text-muted-foreground">
+                ₹{productDetails?.salePrice}
+              </p>
+            ) : null}
+          </div>
+          {/* Description */}
+          <p className="text-muted-foreground text-base md:text-2xl mb-4">
+            {productDetails?.description}
+          </p>
           {/* Add to Cart Button */}
           <div className="mt-4 mb-2">
             {productDetails?.totalStock === 0 ? (
