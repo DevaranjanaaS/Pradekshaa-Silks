@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const imageSections = [
   {
@@ -74,286 +75,416 @@ const imageSections = [
 ];
 
 function AboutUs() {
-  const policyRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
-    if (window.location.hash === "#policy-section" && policyRef.current) {
-      setTimeout(() => {
-        policyRef.current.scrollIntoView({ behavior: "smooth" });
-      }, 100); // Wait for render
+    if (location.hash === "#policies") {
+      const el = document.getElementById("policies");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
     }
-  }, []);
+  }, [location]);
 
   return (
-    <section className="bg-gradient-to-b from-yellow-50 via-white to-yellow-100 py-14 px-4 md:px-0 min-h-screen">
-      <div className="max-w-5xl mx-auto">
-        {/* Title */}
-        <h1 className="text-5xl font-extrabold text-center text-yellow-900 mb-4 tracking-tight drop-shadow-lg">
-          About{" "}
-          <span className="text-yellow-600">Pradhikshaa Ventures</span>
-        </h1>
-        {/* Subtitle */}
-        <p className="text-xl text-center text-gray-700 mb-14 max-w-3xl mx-auto font-medium leading-relaxed bg-white/80 rounded-xl px-6 py-4 shadow">
-          Pradhikshaa Ventures stands as one of Coimbatore’s premier boutiques,
-          renowned for exceptional quality, distinctive designs, and a diverse
-          collection curated for the modern connoisseur. Our unwavering commitment
-          to customer satisfaction is reflected in outstanding service, a seamless
-          shopping experience, and a hassle-free return policy.
-        </p>
-        {/* Alternating image/text sections */}
-        {imageSections.map((section, index) => (
-          <div
-            key={index}
-            className={`flex flex-col md:flex-row ${
-              index % 2 !== 0 ? "md:flex-row-reverse" : ""
-            } gap-10 mb-16 items-center`}
-          >
-            {/* Image */}
-            <div className="flex-1 flex justify-center">
-              <img
-                src={section.src}
-                alt={section.alt}
-                className="rounded-2xl shadow-xl border-4 border-yellow-200 w-full max-w-md transition-transform hover:scale-105 duration-300"
-              />
-            </div>
-            {/* Text */}
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-3 text-yellow-800 tracking-wide">
-                {section.title}
-              </h2>
-              <p className="text-gray-700 text-lg">{section.description}</p>
-            </div>
+    <div className="bg-gradient-to-br from-yellow-50 via-white to-yellow-50 min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 px-6 text-center">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-8">
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-yellow-900 mb-8">
+              Pradhikshaa Ventures
+            </h1>
           </div>
-        ))}
-        {/* Why Choose Us */}
-        <div className="mb-16">
-          <div className="flex items-center justify-center mb-6">
-            <span className="inline-block w-12 h-1 bg-yellow-400 rounded-full mr-3"></span>
-            <h2 className="text-3xl font-extrabold text-yellow-800 tracking-wide text-center drop-shadow">
-              Why Choose Pradhikshaa Ventures?
-            </h2>
-            <span className="inline-block w-12 h-1 bg-yellow-400 rounded-full ml-3"></span>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/90 rounded-xl shadow p-6 flex items-start gap-4">
-              <span className="text-yellow-500 text-3xl">🎨</span>
-              <div>
-                <h3 className="font-bold text-lg text-yellow-900 mb-1">
-                  Curated Collections
-                </h3>
-                <p className="text-gray-700">
-                  Handpicked sarees and accessories for every occasion.
-                </p>
-              </div>
-            </div>
-            <div className="bg-white/90 rounded-xl shadow p-6 flex items-start gap-4">
-              <span className="text-yellow-500 text-3xl">🌟</span>
-              <div>
-                <h3 className="font-bold text-lg text-yellow-900 mb-1">
-                  Unmatched Quality
-                </h3>
-                <p className="text-gray-700">
-                  Premium fabrics and authentic craftsmanship.
-                </p>
-              </div>
-            </div>
-            <div className="bg-white/90 rounded-xl shadow p-6 flex items-start gap-4 md:col-span-2 mx-auto">
-              <span className="text-yellow-500 text-3xl">💎</span>
-              <div>
-                <h3 className="font-bold text-lg text-yellow-900 mb-1">
-                  Lifetime Boutique Experience
-                </h3>
-                <p className="text-gray-700">
-                  We make every shopping experience memorable, building lasting
-                  relationships.
-                </p>
-              </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-700 font-light leading-relaxed mb-8">
+              Coimbatore's premier boutique destination, renowned for exceptional quality, 
+              distinctive designs, and curated collections for the modern connoisseur.
+            </p>
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-yellow-200">
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Our unwavering commitment to customer satisfaction is reflected in outstanding service, 
+                a seamless shopping experience, and a comprehensive return policy that puts your needs first.
+              </p>
             </div>
           </div>
         </div>
-        {/* Connect Section */}
-        <div className="flex flex-col md:flex-row gap-10 items-center bg-white/80 rounded-2xl shadow-lg p-8">
-          <div className="flex-1 order-1 md:order-2">
-            <h2 className="text-2xl font-extrabold text-yellow-800 mb-4 tracking-wide">
-              Connect With Us
+      </section>
+
+      {/* Collections Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-yellow-900 mb-6">
+              Our Collections
             </h2>
-            <div className="space-y-2 text-lg">
-              <div className="flex items-center gap-2">
-                <span className="text-blue-600 text-xl">📘</span>
-                <span>
-                  <b>Facebook:</b>{" "}
-                  <a
-                    href="https://facebook.com/pradhikshaasilks"
-                    className="text-blue-700 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Pradhikshaa Silks
-                  </a>
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-pink-500 text-xl">📸</span>
-                <span>
-                  <b>Instagram:</b>{" "}
-                  <a
-                    href="https://instagram.com/pradhikshaasilks"
-                    className="text-pink-600 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    @pradhikshaasilks
-                  </a>
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-700 text-xl">🌐</span>
-                <span>
-                  <b>Website:</b>{" "}
-                  <a
-                    href="https://www.pradhikshaasilks.com"
-                    className="text-green-700 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    pradhikshaasilks.com
-                  </a>{" "}
-                  |{" "}
-                  <a
-                    href="https://www.pradhikshaaventures.com"
-                    className="text-green-700 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    pradhikshaaventures.com
-                  </a>
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-600 text-xl">💬</span>
-                <span>
-                  <b>WhatsApp:</b>{" "}
-                  <a
-                    href="https://wa.me/+919994819203"
-                    className="text-green-600 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    +919994819203
-                  </a>
-                </span>
-              </div>
-            </div>
-            <p className="mt-6 text-gray-700 italic text-center md:text-left">
-              Discover the elegance of tradition and the allure of modern design at
-              <span className="text-yellow-700 font-semibold"> Pradhikshaa Ventures</span>—your destination for timeless style and exceptional boutique experiences.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover our carefully curated selection of traditional and contemporary pieces, 
+              each telling a unique story of craftsmanship and elegance.
             </p>
           </div>
-        </div>
-        {/* Policy Section Anchor and PDF Embed */}
-        <div id="policy-section" ref={policyRef} className="mt-20">
-          <h2 className="text-2xl font-bold mb-4 text-yellow-900">
-            Return, Exchange & Cancellation Policy
-          </h2>
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col items-start max-w-3xl mx-auto">
-            <p className="mb-2 font-semibold">Pradhikshaa Silks<br/>Return, Cancellation, and Exchange Policy</p>
-            <p className="mb-2 text-gray-700">Effective Date: <span className="italic">[To be added]</span></p>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Return Policy</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li className="font-semibold">Domestic Orders (Within India)</li>
-              <li>Returns are accepted only if the customer informs us within 24 hours of delivery, under the following conditions:
-                <ul className="list-disc pl-6">
-                  <li>The item received is damaged or defective.</li>
-                  <li>An incorrect item has been delivered.</li>
-                </ul>
-              </li>
-              <li className="text-red-600 font-medium">Products purchased on Sale/Deal prices are not eligible for return or exchange under any circumstances.</li>
-            </ul>
-            <p className="font-semibold mt-4">How to Initiate a Return</p>
-            <ol className="list-decimal pl-8 mb-2">
-              <li>Notify Us Within 24 Hours: Inform us via email or WhatsApp/call within 24 hours of delivery, with order details and the reason for return.</li>
-              <li>Provide Proof: For damaged or incorrect items, a clear, unedited video of the entire unboxing process is mandatory. The video must show the product, price tag, and packaging. Edited or cut videos will not be accepted.</li>
-              <li>Approval: Await review and approval from our customer support team.</li>
-              <li>Courier Dispatch Within 3 Days: Once approved, the return courier must be shipped within 3 days of delivery. Pack the item securely and send it to the address provided by our team.</li>
-            </ol>
-            <p className="mb-2">Contact: <br/>Phone/WhatsApp: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a><br/>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a></p>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Products must be unused, with all original tags and folding intact.</li>
-              <li>Must be returned in original packaging.</li>
-              <li>Reverse pickup is not available – all return shipping charges must be borne by the customer.</li>
-              <li>Only one return or exchange is permitted per product.</li>
-            </ul>
-            <p className="font-semibold mt-4">Refunds</p>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Refunds are provided only if the product is out of stock.</li>
-              <li>If a return is approved (not due to stock issues), customers can opt for:
-                <ul className="list-disc pl-6">
-                  <li>Exchange with another product, or</li>
-                  <li>Gift card equivalent to the value of the returned product.</li>
-                </ul>
-              </li>
-              <li>For out-of-stock products, refunds will be processed within 7–10 working days to the original payment method after our quality team’s approval.</li>
-            </ul>
-            <p className="font-semibold mt-4">International Orders</p>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Returns and exchanges are not accepted for orders shipped outside India.</li>
-            </ul>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Exchange Policy</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Exchanges are accepted only for defective or damaged items.</li>
-              <li>The request must be made within 24 hours of delivery.</li>
-              <li>A complete, unedited unboxing video is mandatory.</li>
-              <li>Product must be unused, with original tags, folding, and packaging intact.</li>
-              <li>Reverse pickup is not available – customers must bear the shipping charges.</li>
-              <li>Only one exchange or return is allowed per product.</li>
-              <li>Follow the same procedure as mentioned in the return section.</li>
-              <li>Contact: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a> (Call or WhatsApp)</li>
-            </ul>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Cancellation Policy</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Orders can be cancelled only before they are shipped.</li>
-              <li>To cancel, contact us immediately at <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a>.</li>
-              <li>Once shipped, cancellation is not permitted.</li>
-            </ul>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Quality Check Criteria</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li>No signs of use, wash, or alteration.</li>
-              <li>All original tags (including silk mark tag, if applicable) must be intact.</li>
-              <li>Original folding and packaging must be unaltered.</li>
-              <li>Product must be free from stains, odors, or damages.</li>
-            </ul>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Dispute Resolution</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li>For any dispute or concern related to return/exchange decisions, kindly reach out to us via WhatsApp at <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a> for quick resolution.</li>
-            </ul>
-            <ol className="list-decimal pl-6 mb-4">
-              <li className="mb-2 font-bold">Important Notes</li>
-            </ol>
-            <ul className="list-disc pl-8 mb-2">
-              <li>Color Variations: Minor differences may occur due to screen or camera settings.</li>
-              <li>For any return/exchange/cancellation-related queries, contact us at:
-                <ul className="list-disc pl-6">
-                  <li>Phone/WhatsApp: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a></li>
-                  <li>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a></li>
-                </ul>
-              </li>
-            </ul>
-            <p className="mt-4 text-gray-700">This policy is intended to maintain transparency, fairness, and a smooth shopping experience for all our customers at Pradhikshaa Silks.</p>
-            <p className="mt-2 font-semibold">Pradhikshaa Silks<br/>Customer Support: <a href="tel:+919994819203" className="text-blue-600">+91 99948 19203</a><br/>Email: <a href="mailto:pradhikshaasilks@gmail.com" className="text-blue-600">pradhikshaasilks@gmail.com</a><br/>Address: <span className="italic">[To be added]</span></p>
+
+          <div className="space-y-20">
+            {imageSections.map((section, index) => (
+              <div
+                key={index}
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } gap-12 items-center`}
+              >
+                {/* Image Container */}
+                <div className="flex-1 w-full max-w-lg">
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-3xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                    <img
+                      src={section.src}
+                      alt={section.alt}
+                      className="relative w-full h-80 object-cover rounded-2xl shadow-2xl border-2 border-yellow-200 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-3xl font-bold text-yellow-800 tracking-wide">
+                      {section.title}
+                    </h3>
+                    <div className="w-20 h-1 bg-yellow-400 rounded-full"></div>
+                  </div>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {section.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 px-6 bg-white/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-yellow-900 mb-6">
+              Why Choose Pradhikshaa Ventures?
+            </h2>
+            <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience the difference that passion, quality, and dedication make in every interaction.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-yellow-100">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white text-3xl">🎨</span>
+                </div>
+                <h3 className="text-2xl font-bold text-yellow-900 mb-3">
+                  Curated Collections
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Handpicked sarees and accessories for every occasion, ensuring you find the perfect piece for your special moments.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-yellow-100">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white text-3xl">🌟</span>
+                </div>
+                <h3 className="text-2xl font-bold text-yellow-900 mb-3">
+                  Unmatched Quality
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Premium fabrics and authentic craftsmanship that stand the test of time, ensuring lasting beauty and comfort.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300 border border-yellow-100">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white text-3xl">💎</span>
+                </div>
+                <h3 className="text-2xl font-bold text-yellow-900 mb-3">
+                  Lifetime Experience
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We create memorable shopping experiences and build lasting relationships with every customer who walks through our doors.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Policies Section */}
+      <section id="policies" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-2xl border border-yellow-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 p-8 text-white text-center">
+              <h2 className="text-4xl font-bold mb-4">
+                Return, Cancellation & Exchange Policy
+              </h2>
+              <p className="text-xl opacity-90">
+                Pradhikshaa Silks - Transparent, Fair, and Customer-Focused
+              </p>
+            </div>
+
+            <div className="p-10">
+              <div className="prose prose-lg max-w-none">
+                <div className="grid gap-8">
+                  
+                  {/* Return Policy */}
+                  <div className="bg-yellow-50 rounded-2xl p-8 border border-yellow-200">
+                    <h3 className="text-2xl font-bold text-yellow-900 mb-6 flex items-center">
+                      <span className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold mr-3">1</span>
+                      Return Policy
+                    </h3>
+                    
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-xl font-semibold text-yellow-800 mb-3">Domestic Orders (Within India)</h4>
+                        <div className="bg-white rounded-xl p-6 border border-yellow-200">
+                          <p className="text-gray-700 mb-4">
+                            <strong>Eligibility:</strong> Returns are accepted only if notified within 24 hours of delivery for:
+                          </p>
+                          <div className="grid md:grid-cols-2 gap-4 mb-4">
+                            <div className="flex items-center">
+                              <span className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
+                              <span className="text-gray-700">Damaged or defective items</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
+                              <span className="text-gray-700">Incorrect item delivered</span>
+                            </div>
+                          </div>
+                          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <p className="text-red-700 font-semibold">
+                              Important: Sale/Deal items are not eligible for return or exchange.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-semibold text-yellow-800 mb-3">Return Process</h4>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="bg-white rounded-xl p-6 border border-yellow-200">
+                            <div className="flex items-center mb-3">
+                              <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">1</span>
+                              <strong className="text-gray-800">Notify Within 24 Hours</strong>
+                            </div>
+                            <p className="text-gray-600 text-sm">Contact via email or WhatsApp with order details and reason</p>
+                          </div>
+                          <div className="bg-white rounded-xl p-6 border border-yellow-200">
+                            <div className="flex items-center mb-3">
+                              <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">2</span>
+                              <strong className="text-gray-800">Provide Proof</strong>
+                            </div>
+                            <p className="text-gray-600 text-sm">Unedited unboxing video showing product, tags, and packaging</p>
+                          </div>
+                          <div className="bg-white rounded-xl p-6 border border-yellow-200">
+                            <div className="flex items-center mb-3">
+                              <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">3</span>
+                              <strong className="text-gray-800">Await Approval</strong>
+                            </div>
+                            <p className="text-gray-600 text-sm">Our team will review and approve your return request</p>
+                          </div>
+                          <div className="bg-white rounded-xl p-6 border border-yellow-200">
+                            <div className="flex items-center mb-3">
+                              <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">4</span>
+                              <strong className="text-gray-800">Ship Within 3 Days</strong>
+                            </div>
+                            <p className="text-gray-600 text-sm">Pack securely and ship to provided address</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exchange Policy */}
+                  <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h3 className="text-2xl font-bold text-green-900 mb-6 flex items-center">
+                      <span className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3">2</span>
+                      Exchange Policy
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div className="bg-white rounded-xl p-6 border border-green-200">
+                        <h4 className="font-semibold text-green-800 mb-2">Eligibility</h4>
+                        <p className="text-gray-600 text-sm">Only for defective/damaged items within 24 hours</p>
+                      </div>
+                      <div className="bg-white rounded-xl p-6 border border-green-200">
+                        <h4 className="font-semibold text-green-800 mb-2">Requirements</h4>
+                        <p className="text-gray-600 text-sm">Unboxing video, original tags, unused condition</p>
+                      </div>
+                      <div className="bg-white rounded-xl p-6 border border-green-200">
+                        <h4 className="font-semibold text-green-800 mb-2">Process</h4>
+                        <p className="text-gray-600 text-sm">Same as return procedure, customer pays shipping</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cancellation Policy */}
+                  <div className="bg-orange-50 rounded-2xl p-8 border border-orange-200">
+                    <h3 className="text-2xl font-bold text-orange-900 mb-6 flex items-center">
+                      <span className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">3</span>
+                      Cancellation Policy
+                    </h3>
+                    <div className="bg-white rounded-xl p-6 border border-orange-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-gray-700 mb-2">
+                            <strong>Before Shipping:</strong> Full cancellation allowed
+                          </p>
+                          <p className="text-gray-700">
+                            <strong>After Shipping:</strong> Cancellation not permitted
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600">Contact immediately:</p>
+                          <a href="https://wa.me/+919994819203" className="text-orange-600 font-semibold">
+                            +91 99948 19203
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quality Standards */}
+                  <div className="bg-purple-50 rounded-2xl p-8 border border-purple-200">
+                    <h3 className="text-2xl font-bold text-purple-900 mb-6 flex items-center">
+                      <span className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">4</span>
+                      Quality Check Criteria
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                          <span className="text-gray-700">No signs of use, wash, or alteration</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                          <span className="text-gray-700">All original tags intact</span>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                          <span className="text-gray-700">Original folding and packaging</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                          <span className="text-gray-700">Free from stains, odors, or damage</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Important Notes */}
+                  <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">Important Notes</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-3">Refund Options</h4>
+                        <div className="space-y-2 text-sm text-gray-600">
+                          <p>• Product exchange</p>
+                          <p>• Gift card equivalent</p>
+                          <p>• Full refund (if out of stock)</p>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-3">International Orders</h4>
+                        <p className="text-sm text-gray-600">
+                          Returns and exchanges not accepted for orders shipped outside India.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Connect Section */}
+      <section className="py-20 px-6 bg-gradient-to-r from-yellow-50 to-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-2xl border border-yellow-200 overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-0">
+              <div className="p-12">
+                <h2 className="text-4xl font-bold text-yellow-900 mb-8">
+                  Connect With Us
+                </h2>
+                <div className="space-y-6">
+                  
+
+                  <div className="flex items-center gap-4 p-4 bg-pink-50 rounded-xl border border-pink-200">
+                    <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl">📸</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-800">Instagram</p>
+                      <a
+                        href="https://instagram.com/pradhikshaasilks"
+                        className="text-pink-600 hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        @pradhikshaasilks
+                      </a>
+                    </div>
+                  </div>
+
+                  
+
+                  <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl border border-green-200">
+                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl">💬</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-800">WhatsApp</p>
+                      <a
+                        href="https://wa.me/+919994819203"
+                        className="text-green-600 hover:underline text-lg font-semibold"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        +91 99948 19203
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-yellow-400 to-yellow-600 p-12 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-6xl">💎</span>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4">
+                    Experience Excellence
+                  </h3>
+                  <p className="text-lg leading-relaxed opacity-90">
+                    Discover the elegance of tradition and the allure of modern design at 
+                    Pradhikshaa Ventures—your destination for timeless style and exceptional 
+                    boutique experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 

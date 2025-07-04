@@ -12,6 +12,7 @@ import { Label } from "../ui/label";
 import StarRatingComponent from "../common/star-rating";
 import { useEffect, useState, useRef } from "react";
 import { addReview, getReviews } from "@/store/shop/review-slice";
+import { useNavigate } from "react-router-dom";
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
   const [reviewMsg, setReviewMsg] = useState("");
@@ -20,11 +21,12 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.shopCart);
   const { reviews } = useSelector((state) => state.shopReview);
+  const navigate = useNavigate();
 
   const { toast } = useToast();
 
   function handleRatingChange(getRating) {
-    console.log(getRating, "getRating");
+    //console.log(getRating, "getRating");
 
     setRating(getRating);
   }
@@ -40,7 +42,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity;
         if (getQuantity + 1 > getTotalStock) {
           toast({
-            title: `Only ${getQuantity} quantity can be added for this item`,
+            title: Only ${getQuantity} quantity can be added for this item,
             variant: "destructive",
           });
 
@@ -98,11 +100,15 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
     });
   }
 
+  function handlePolicyClick() {
+    navigate("/shop/about-us#policies");
+  }
+
   useEffect(() => {
     if (productDetails !== null) dispatch(getReviews(productDetails?._id));
   }, [productDetails]);
 
-  console.log(reviews, "reviews");
+  //console.log(reviews, "reviews");
 
   const averageReview =
     reviews && reviews.length > 0
@@ -126,7 +132,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             />
           )}
         </div>
-        <div className="">
+        <div className="relative">
           <div>
             <h1 className="text-3xl font-extrabold">{productDetails?.title}</h1>
             {/* YouTube Video Preview */}
@@ -152,7 +158,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   }
                   const videoId = getYouTubeVideoId(productDetails.youtubeLink.trim());
                   if (!videoId) return null;
-                  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+                  const embedUrl = https://www.youtube-nocookie.com/embed/${videoId};
                   return (
                     <iframe
                       width="100%"
@@ -203,17 +209,9 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 Add to Cart
               </Button>
             )}
+            
           </div>
           <Separator />
-          <div className="mt-4 mb-2">
-            <a
-              href="/about-us#policy-section"
-              className="text-blue-600 hover:underline text-sm font-medium"
-              onClick={() => setOpen(false)}
-            >
-              Know about our Return & Cancellation Policy
-            </a>
-          </div>
           {/* <div className="max-h-[300px] overflow-auto">
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
             <div className="grid gap-6">
@@ -264,6 +262,19 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               </Button>
             </div>
           </div> */}
+          {/* Move the policy button further left from the bottom right of the right column */}
+          <div className="w-full flex justify-center absolute bottom-3">
+  <Button
+    variant="outline"
+    className="text-xs px-4 py-2"
+    style={{ width: "fit-content" }}
+    onClick={handlePolicyClick}
+    type="button"
+  >
+    Know our policies
+  </Button>
+</div>
+
         </div>
       </DialogContent>
     </Dialog>
@@ -296,7 +307,7 @@ function ProductImagesCarousel({ images, title }) {
           {images.map((_, idx) => (
             <span
               key={idx}
-              className={`w-2 h-2 rounded-full ${idx === current ? "bg-primary" : "bg-gray-300"}`}
+              className={w-2 h-2 rounded-full ${idx === current ? "bg-primary" : "bg-gray-300"}}
               style={{ display: "inline-block" }}
             ></span>
           ))}
