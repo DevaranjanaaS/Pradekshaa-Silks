@@ -42,7 +42,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity;
         if (getQuantity + 1 > getTotalStock) {
           toast({
-            title: Only ${getQuantity} quantity can be added for this item,
+            title: `Only ${getQuantity} quantity can be added for this item`,
             variant: "destructive",
           });
 
@@ -158,7 +158,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   }
                   const videoId = getYouTubeVideoId(productDetails.youtubeLink.trim());
                   if (!videoId) return null;
-                  const embedUrl = https://www.youtube-nocookie.com/embed/${videoId};
+                  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
                   return (
                     <iframe
                       width="100%"
@@ -307,7 +307,7 @@ function ProductImagesCarousel({ images, title }) {
           {images.map((_, idx) => (
             <span
               key={idx}
-              className={w-2 h-2 rounded-full ${idx === current ? "bg-primary" : "bg-gray-300"}}
+              className={`w-2 h-2 rounded-full ${idx === current ? "bg-primary" : "bg-gray-300"}`}
               style={{ display: "inline-block" }}
             ></span>
           ))}
