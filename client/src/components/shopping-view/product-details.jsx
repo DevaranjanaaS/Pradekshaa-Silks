@@ -118,9 +118,12 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
-        <div className="relative overflow-hidden rounded-lg">
-          {/* Image Carousel */}
+      <DialogContent
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:p-6 md:p-12 max-w-[98vw] sm:max-w-[90vw] lg:max-w-[70vw] overflow-y-auto"
+        style={{ maxHeight: "90vh" }}
+      >
+        {/* Product Images Carousel */}
+        <div className="relative overflow-hidden rounded-lg order-1 md:order-1">
           {productDetails?.images && productDetails.images.length > 0 ? (
             <ProductImagesCarousel images={productDetails.images} title={productDetails?.title} />
           ) : (
@@ -132,66 +135,67 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             />
           )}
         </div>
-        <div className="relative">
-          <div>
-            <h1 className="text-3xl font-extrabold">{productDetails?.title}</h1>
-            {/* YouTube Video Preview */}
-            {productDetails?.youtubeLink && (
-              <div className="my-4">
-                {(() => {
-                  // Robustly extract YouTube video ID from various URL formats
-                  function getYouTubeVideoId(url) {
-                    if (!url) return null;
-                    // youtu.be/VIDEOID
-                    let match = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-                    if (match) return match[1];
-                    // youtube.com/embed/VIDEOID
-                    match = url.match(/embed\/([a-zA-Z0-9_-]{11})/);
-                    if (match) return match[1];
-                    // youtube.com/watch?v=VIDEOID
-                    match = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-                    if (match) return match[1];
-                    // youtube.com/shorts/VIDEOID
-                    match = url.match(/shorts\/([a-zA-Z0-9_-]{11})/);
-                    if (match) return match[1];
-                    return null;
-                  }
-                  const videoId = getYouTubeVideoId(productDetails.youtubeLink.trim());
-                  if (!videoId) return null;
-                  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
-                  return (
+        {/* Product Details */}
+        <div className="relative flex flex-col order-2 md:order-2">
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-extrabold mb-2">{productDetails?.title}</h1>
+          {/* Price */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
+            <p
+              className={`text-2xl md:text-3xl font-bold text-primary ${
+                productDetails?.salePrice > 0 ? "line-through" : ""
+              }`}
+            >
+              ₹{productDetails?.price}
+            </p>
+            {productDetails?.salePrice > 0 ? (
+              <p className="text-xl md:text-2xl font-bold text-muted-foreground">
+                ₹{productDetails?.salePrice}
+              </p>
+            ) : null}
+          </div>
+          {/* Description */}
+          <p className="text-muted-foreground text-base md:text-2xl mb-4">
+            {productDetails?.description}
+          </p>
+          {/* YouTube Video Preview */}
+          {productDetails?.youtubeLink && (
+            <div className="my-2 md:my-4 order-4">
+              {(() => {
+                function getYouTubeVideoId(url) {
+                  if (!url) return null;
+                  let match = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+                  if (match) return match[1];
+                  match = url.match(/embed\/([a-zA-Z0-9_-]{11})/);
+                  if (match) return match[1];
+                  match = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+                  if (match) return match[1];
+                  match = url.match(/shorts\/([a-zA-Z0-9_-]{11})/);
+                  if (match) return match[1];
+                  return null;
+                }
+                const videoId = getYouTubeVideoId(productDetails.youtubeLink.trim());
+                if (!videoId) return null;
+                const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+                return (
+                  <div className="w-full aspect-video rounded-lg overflow-hidden bg-black">
                     <iframe
                       width="100%"
-                      height="315"
+                      height="100%"
                       src={embedUrl}
                       title="YouTube video preview"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      className="w-full h-full"
                     ></iframe>
-                  );
-                })()}
-              </div>
-            )}
-            <p className="text-muted-foreground text-2xl mb-5 mt-4">
-              {productDetails?.description}
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <p
-              className={`text-3xl font-bold text-primary ${
-                productDetails?.salePrice > 0 ? "line-through" : ""
-              }`}
-            >
-               ₹{productDetails?.price}
-            </p>
-            {productDetails?.salePrice > 0 ? (
-              <p className="text-2xl font-bold text-muted-foreground">
-                ₹{productDetails?.salePrice}
-              </p>
-            ) : null}
-          </div>
-          <div className="mt-5 mb-5">
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+          {/* Add to Cart Button */}
+          <div className="mt-4 mb-2">
             {productDetails?.totalStock === 0 ? (
               <Button className="w-full opacity-60 cursor-not-allowed">
                 Out of Stock
@@ -209,72 +213,20 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 Add to Cart
               </Button>
             )}
-            
           </div>
-          <Separator />
-          {/* <div className="max-h-[300px] overflow-auto">
-            <h2 className="text-xl font-bold mb-4">Reviews</h2>
-            <div className="grid gap-6">
-              {reviews && reviews.length > 0 ? (
-                reviews.map((reviewItem) => (
-                  <div className="flex gap-4">
-                    <Avatar className="w-10 h-10 border">
-                      <AvatarFallback>
-                        {reviewItem?.userName[0].toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="grid gap-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-bold">{reviewItem?.userName}</h3>
-                      </div>
-                      <div className="flex items-center gap-0.5">
-                        <StarRatingComponent rating={reviewItem?.reviewValue} />
-                      </div>
-                      <p className="text-muted-foreground">
-                        {reviewItem.reviewMessage}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <h1>No Reviews</h1>
-              )}
-            </div>
-            <div className="mt-10 flex-col flex gap-2">
-              <Label>Write a review</Label>
-              <div className="flex gap-1">
-                <StarRatingComponent
-                  rating={rating}
-                  handleRatingChange={handleRatingChange}
-                />
-              </div>
-              <Input
-                name="reviewMsg"
-                value={reviewMsg}
-                onChange={(event) => setReviewMsg(event.target.value)}
-                placeholder="Write a review..."
-              />
-              <Button
-                onClick={handleAddReview}
-                disabled={reviewMsg.trim() === ""}
-              >
-                Submit
-              </Button>
-            </div>
-          </div> */}
-          {/* Move the policy button further left from the bottom right of the right column */}
-          <div className="w-full flex justify-center absolute bottom-3">
-  <Button
-    variant="outline"
-    className="text-xs px-4 py-2"
-    style={{ width: "fit-content" }}
-    onClick={handlePolicyClick}
-    type="button"
-  >
-    Know our policies
-  </Button>
-</div>
-
+          {/* Know our policies Button */}
+          <div className="mt-2 flex justify-start pl-1">
+            <Button
+              variant="outline"
+              className="text-xs px-8 py-2"
+              onClick={handlePolicyClick}
+              type="button"
+            >
+              Know our policies
+            </Button>
+          </div>
+          <Separator className="my-4" />
+          {/* Optionally, reviews or other content can go here */}
         </div>
       </DialogContent>
     </Dialog>
